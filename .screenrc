@@ -1,0 +1,72 @@
+#### Basic ###
+#caption always "%?%F%{= bW}%:%{= wk}%?%2n%f%07=%t%="
+hardstatus alwayslastline "%{= gk}%{gW} %-w%{= wk}%n %t%{-}%+w %=%{gk} $USER@$HOSTNAME[$LANG]"
+defencoding utf8
+#defencoding euc-jp
+encoding utf8
+#encoding euc-jp
+altscreen on
+
+vbell off
+bell_msg "Bell in window %^G"
+startup_message off
+autodetach on
+logfile "$HOME/.screen/screen-%Y%m%d-%n.log"
+hardcopydir "$HOME/.screen"
+log on
+deflog on
+escape ^\\
+defscrollback 5000
+shell $SHELL
+
+backtick 10 1 1 uptime
+backtick 20 1 1 bash -c "cat /proc/meminfo | grep MemFree | sed -e 's/ //g'"
+
+termcap     linux           'AF=\E[3%dm:AB=\E[4%dm'
+termcap     xterm-color     'AF=\E[3%dm:AB=\E[4%dm'
+terminfo    linux           'AF=\E[3%p1%dm:AB=\E[4%p1%dm'
+terminfo    xterm-color     'AF=\E[3%p1%dm:AB=\E[4%p1%dm'
+termcapinfo xterm* ti@:te@
+termcapinfo rxvt* ti@:te@
+termcapinfo rxvt 'hs:ts=\E]2;:fs=07:ds=\E]2;screen07'
+termcapinfo linux ti@:te@
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+
+### bindkey ###
+# resize
+bind e eval 'command -c resize' 'echo "Resize window"'
+bind ^e eval 'command -c resize' 'echo "Resize window"'
+bind -c resize H eval 'command -c resize' 'resize -h -1'
+bind -c resize L eval 'command -c resize' 'resize -h +1'
+bind -c resize J eval 'command -c resize' 'resize -v +1'
+bind -c resize K eval 'command -c resize' 'resize -v -1'
+
+# reload
+bind r eval 'source ~/.screenrc' 'echo "source ~/.screenrc"'
+
+# window operation
+bind w windowlist -b
+
+# pane operation
+bind j eval 'focus down'
+bind k eval 'focus up'
+bind h eval 'focus left'
+bind l eval 'focus right'
+bind | eval 'split -v' focus screen
+bind - eval 'split' focus screen
+bind x eval 'remove'
+
+# vim の矩形選択モード
+bind -m -t ^v eval 'stuff " "'  'bindkey -m -t y stuff " "'
+# vim の行選択モード
+bind -m -t  V eval 'stuff "0 $"' 'bindkey -m -t y stuff "$ "'
+
+# encoding aliases
+bind u  eval 'encoding utf8'  'info'
+bind ^U eval 'encoding utf8'  'info'
+bind e  eval 'encoding eucjp' 'info'
+bind ^E eval 'encoding eucjp' 'info'
+
+
+

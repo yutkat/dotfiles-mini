@@ -1,0 +1,149 @@
+# xhost(1) completion
+
+have xhost &&
+_xhost ()
+{
+    local cur
+    _get_comp_words_by_ref cur
+
+    case $cur in
+        +*) _known_hosts_real -p+ "${cur:1}" ;;
+        -*) _known_hosts_real -p- "${cur:1}" ;;
+        *)  _known_hosts_real "$cur" ;;
+    esac
+
+    return 0
+} &&
+complete -F _xhost xhost
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 4
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: ts=4 sw=4 et filetype=sh
+
+# xmodmap(1) completion
+
+have xmodmap &&
+_xmodmap()
+{
+    COMPREPLY=()
+    local cur prev
+    _get_comp_words_by_ref cur prev
+
+    case $prev in
+        -display|-e)
+            return 0
+            ;;
+    esac
+
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=( $( compgen -W '-display -help -grammar -verbose -quiet -n
+            -e -pm -pk -pke -pp' -- "$cur" ) )
+        return 0
+    fi
+
+    _filedir
+} &&
+complete -F _xmodmap xmodmap
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 4
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: ts=4 sw=4 et filetype=sh
+
+# bash completion for xrandr
+
+have xrandr &&
+_xrandr()
+{
+    local cur prev output modes
+    COMPREPLY=()
+    _get_comp_words_by_ref cur prev
+
+    case $prev in
+        --output)
+            local outputs=$(xrandr|awk '/connected/ {print $1}')
+            COMPREPLY=( $(compgen -W "$outputs" -- "$cur"))
+            return 0
+            ;;
+        --mode)
+            for(( i = 1; i < COMP_CWORD; i++ )); do
+                if [[ "${COMP_WORDS[i]}" == "--output" ]]; then
+                    output=${COMP_WORDS[i+1]}
+                    break
+                fi
+            done
+            modes=$(xrandr|sed -e "1,/$output/ d" \
+                -e "/connected/,$ d"|awk '{print $1}')
+            COMPREPLY=( $( compgen -W "$modes" -- "$cur"))
+            return 0
+            ;;
+    esac
+
+    case $cur in
+        *)
+            COMPREPLY=( $(compgen -W '-display -help --orientation --query \
+                --size --rate --version -x -y --screen --verbose --dryrun \
+                --prop --fb --fbmm --dpi --output --auto --mode --preferred \
+                --pos --reflect --rotate --left-of --right-of --above --below \
+                --same-as --set --off --crtc --newmode --rmmode --addmode \
+                --delmode' -- "$cur") )
+            return 0
+            ;;
+    esac
+
+    return 0
+} &&
+complete -F _xrandr xrandr
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 4
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: ts=4 sw=4 et filetype=sh
+
+# xrdb(1) completion
+
+have xrdb &&
+_xrdb()
+{
+    COMPREPLY=()
+    local cur prev
+    _get_comp_words_by_ref cur prev
+
+    case $prev in
+        -backup|-display|-help)
+            return 0
+            ;;
+        -cpp|-edit)
+            _filedir
+            return 0
+            ;;
+    esac
+
+    if [[ "$cur" == -* ]]; then
+        COMPREPLY=( $( compgen -W '-help -display -all -global -screen -screens
+            -n -quiet -cpp -nocpp -symbols -query -load -override -merge
+            -remove -retain -edit -backup' -- "$cur" ) )
+        return 0
+    fi
+
+    _filedir
+} &&
+complete -F _xrdb xrdb
+
+# Local variables:
+# mode: shell-script
+# sh-basic-offset: 4
+# sh-indent-comment: t
+# indent-tabs-mode: nil
+# End:
+# ex: ts=4 sw=4 et filetype=sh

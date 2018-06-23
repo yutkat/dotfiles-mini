@@ -1,0 +1,35 @@
+###### all ignore ######
+/*
+/.*
+/.*/*
+/.*/*/*
+
+###### not ignore list ######
+!/.bashrc
+!/.bash_profile
+!/.dircolors
+!/.inputrc
+# vim setting file
+!/.vim/
+!/.vimrc
+# exec directory
+!/.bin/
+!/.bin/*
+!/.bin/completion/
+!/.bin/completion/*
+!/.bin/bash_completion.d/
+!/.bin/bash_completion.d/*
+# application setting file
+!/.screenrc
+!/.screen/
+!/.tmux.conf
+# etc
+!/.gdbinit
+!/README.md
+
+###### ignore list ######
+*.swp
+
+###### final not ignore list ######
+!.gitignore
+!.gitkeep

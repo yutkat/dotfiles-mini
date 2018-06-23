@@ -1,0 +1,19 @@
+# ベル無
+set bell-style none
+# 入力候補リストのディレクトリや実行可能ファイルに印をつける
+set visible-stats on
+
+# C-(n|p)でhistory-search
+"\C-p":history-search-backward
+"\C-n":history-search-forward
+"\e[A":history-search-backward
+"\e[B":history-search-forward
+
+# cursor move
+"\e[1;5C": forward-word   # ctrl + right
+"\e[1;5D": backward-word  # ctrl + left
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
