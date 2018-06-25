@@ -1,7 +1,7 @@
-General Dots
+dotfiles mini
 ===============
 
-Include a no plugin home dot files.
+Include a no plugin dotfiles.
 Can be used quickly.
 
 ## HOWTO ##
