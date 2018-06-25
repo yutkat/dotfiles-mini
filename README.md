@@ -7,7 +7,7 @@ Can be used quickly.
 ## HOWTO ##
 
 1. `git clone xxx`
-2. `cp -r gdots/* gdots/.* .`
+2. `./bin/dotsinstall.sh`
 
 ## Features ##
 
