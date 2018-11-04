@@ -286,6 +286,7 @@ case "$TERM" in
     # word delete
     stty werase undef
     bind '\C-w:unix-filename-rubout'
+    _termtitle="\h:\w"
     ;;
 esac
 
