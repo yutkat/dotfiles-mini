@@ -281,11 +281,13 @@ case "$TERM" in
     stty erase '^?'
     stty werase '^W'
     stty stop undef
-    # 隠しファイルを補完候補に入れない
-    bind 'set match-hidden-files off'
     # word delete
     stty werase undef
-    bind '\C-w:unix-filename-rubout'
+    if [[ "$-" =~ "i" ]]; then
+        # 隠しファイルを補完候補に入れない
+        bind 'set match-hidden-files off'
+        bind '\C-w:unix-filename-rubout'
+    fi
     _termtitle="\h:\w"
     ;;
 esac
