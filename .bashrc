@@ -231,9 +231,26 @@ GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES="enable"
 GIT_PS1_SHOWUPSTREAM="auto"
 
-#export PS1="===\D{%FT%T}===\$(prompt_right_aligned)\$(echo -ne \$(init_prompt_git_branch))\n[\u@\h:\w]\$ "
+function colorize_by_host() {
+  local hash=$(hostname | sha256sum | cut -b 1-2)
+  local color_fg=$(( ("0x"${hash:0:1}) % 8 ))
+  local color_bg=$(( ("0x"${hash:1:1}) % 8 ))
+  if [[ $color_fg -eq $color_bg ]]; then
+    color_bg=$(( ($color_bg +1) % 8 + 40 ))
+  else
+    color_bg=$(( ($color_bg +1) % 8 + 40 ))
+  fi
+  if [[ ${color_fg} -eq 0 ]]; then
+    color_fg=$(( ($color_fg +1) % 8 ))
+  fi
+  color_fg=$(( $color_fg + 30 ))
+  #echo "\e[${color_fg}m\e[${color_bg}m\]"
+  echo "\e[${color_fg}m\]"
+}
+
 PROMPT_COLOR="\033[0;37;100m"
-export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n\$ "
+#export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n\$ "
+export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n$(colorize_by_host)\$${Color_Off} "
 PROMPT_COMMAND=__show_status
 export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME:+$FUNCNAME(): }'
 
