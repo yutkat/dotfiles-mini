@@ -226,7 +226,11 @@ function __show_status() {
 ######################
 ### PROMPT_COMMAND ###
 ######################
-PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
+function __prompt_command() {
+  share_history
+  __show_status
+}
+
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWUNTRACKEDFILES="enable"
 GIT_PS1_SHOWUPSTREAM="auto"
@@ -251,7 +255,7 @@ function colorize_by_host() {
 PROMPT_COLOR="\033[0;37;100m"
 #export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n\$ "
 export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n$(colorize_by_host)\$${Color_Off} "
-PROMPT_COMMAND=__show_status
+PROMPT_COMMAND=__prompt_command
 export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME:+$FUNCNAME(): }'
 
 ##############
