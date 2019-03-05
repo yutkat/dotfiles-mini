@@ -254,7 +254,7 @@ function colorize_by_host() {
 
 PROMPT_COLOR="\033[0;37;100m"
 #export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n\$ "
-export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n$(colorize_by_host)\$${Color_Off} "
+export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)$(colorize_by_host)===\D{%FT%T}===${Color_Off}\n\$ "
 PROMPT_COMMAND=__prompt_command
 export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME:+$FUNCNAME(): }'
 
