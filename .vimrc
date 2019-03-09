@@ -206,6 +206,12 @@ nnoremap <F11> g,
 nnoremap ( {
 nnoremap ) }
 
+" For search
+nnoremap v/ /\v
+vnoremap * y/<C-R>"<CR>
+vnoremap z/ <ESC>/\%V
+vnoremap z? <ESC>?\%V
+
 " For replace
 nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
