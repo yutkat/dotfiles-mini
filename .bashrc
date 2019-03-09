@@ -338,7 +338,7 @@ alias mv='mv -i'
 alias scp="scp -p"
 alias sc="screen"
 alias cd="cdls"
-alias grep="grep --color=auto -n -H -i -I"
+alias gre="grep --color=auto -n -H -i -I"
 alias makecolor="makecolor"
 alias l='less'
 alias vi='vim'
