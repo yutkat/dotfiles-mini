@@ -236,8 +236,8 @@ GIT_PS1_SHOWUPSTREAM="auto"
 
 function colorize_by_host() {
   local hash=$(hostname | sha256sum | cut -b 1-2)
-  local color_fg=$(( ("0x"${hash:0:1}) % 8 ))
-  local color_bg=$(( ("0x"${hash:1:1}) % 8 ))
+  local color_fg=$(( $(echo "0x"${hash:0:1}) % 8 ))
+  local color_bg=$(( $(echo "0x"${hash:1:1}) % 8 ))
   if [[ $color_fg -eq $color_bg ]]; then
     color_bg=$(( ($color_bg +1) % 8 + 40 ))
   else
@@ -338,7 +338,7 @@ alias mv='mv -i'
 alias scp="scp -p"
 alias sc="screen"
 alias cd="cdls"
-alias grep="grep --color=auto -n -H -i -I"
+alias gre="grep --color=auto -n -H -i -I"
 alias makecolor="makecolor"
 alias l='less'
 alias vi='vim'
