@@ -201,10 +201,10 @@ function makecolor() {
 
 function __show_status() {
     local status=$(echo ${PIPESTATUS[@]})
-    local SETCOLOR_SUCCESS="echo -en $Green"
-    local SETCOLOR_FAILURE="echo -en $Red"
-    local SETCOLOR_WARNING="echo -en $Yellow"
-    local SETCOLOR_NORMAL="echo -en $Color_Off"
+    local SETCOLOR_SUCCESS="echo -ne $Green"
+    local SETCOLOR_FAILURE="echo -ne $Red"
+    local SETCOLOR_WARNING="echo -ne $Yellow"
+    local SETCOLOR_NORMAL="echo -ne $Color_Off"
 
     local SETCOLOR s
     for s in ${status}; do
@@ -217,8 +217,8 @@ function __show_status() {
         fi
     done
     ${SETCOLOR}
-    if [ "$SETCOLOR" != "${SETCOLOR_SUCCESS}" ]; then
-        echo -ne "(${status// /|})"
+    if [ "${SETCOLOR}" != "${SETCOLOR_SUCCESS}" ]; then
+        echo -ne "(${status// /|}) "
     fi
     ${SETCOLOR_NORMAL}
 }
@@ -228,7 +228,6 @@ function __show_status() {
 ######################
 function __prompt_command() {
   share_history
-  __show_status
 }
 
 GIT_PS1_SHOWDIRTYSTATE=true
@@ -252,9 +251,10 @@ function colorize_by_host() {
   echo "\e[${color_fg}m\]"
 }
 
-PROMPT_COLOR="\033[0;37;100m"
+
+PROMPT_COLOR="\033[0;37;40m"
 #export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)${PROMPT_COLOR}===\D{%FT%T}===${Color_Off}\n\$ "
-export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(prompt_right_aligned)$(colorize_by_host)===\D{%FT%T}===${Color_Off}\n\$ "
+export PS1="${PROMPT_COLOR}[\u@\h:\w]${Color_Off}\$(init_prompt_git_branch)\$(__show_status)\$(prompt_right_aligned)$(colorize_by_host)===\D{%FT%T}===${Color_Off}\n\$ "
 PROMPT_COMMAND=__prompt_command
 export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME:+$FUNCNAME(): }'
 
