@@ -18,6 +18,11 @@ Can be used quickly.
 - gdb
 - utility tools
 
+## Recommended OS ##
+
+- CentOS
+- Ubuntu
+
 ## RELEASE NOTE ##
 
 2014/12/19 first release
