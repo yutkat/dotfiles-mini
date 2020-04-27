@@ -152,7 +152,7 @@ function length() {
 function init_prompt_git_branch() {
     git branch &>/dev/null
     if [ $? -eq 0 ]; then
-      echo -ne "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+      echo -ne "$(GIT_LFS_SKIP_SMUDGE=1 echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
       if [ "$?" -eq "0" ]; then \
         # @4 - Clean repository - nothing to commit
         echo ""$Green""$(__git_ps1 " (%s)"); \
